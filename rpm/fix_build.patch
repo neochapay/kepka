@@ -1,0 +1,34 @@
+diff -Naur upstream_orig/Telegram/CMakeLists.txt upstream/Telegram/CMakeLists.txt
+--- upstream_orig/Telegram/CMakeLists.txt	2018-11-07 12:36:48.158272497 +0300
++++ upstream/Telegram/CMakeLists.txt	2018-11-07 17:47:02.893198009 +0300
+@@ -635,7 +635,6 @@
+     Qt5::Core
+     Qt5::Widgets
+     Qt5::Network
+-    Qt5::GuiPrivate
+     Threads::Threads
+     tgvoip
+     ${OPENAL_LIBRARY}
+diff -Naur upstream_orig/Telegram/SourceFiles/codegen/style/parsed_file.cpp upstream/Telegram/SourceFiles/codegen/style/parsed_file.cpp
+--- upstream_orig/Telegram/SourceFiles/codegen/style/parsed_file.cpp	2018-11-07 12:36:48.226272516 +0300
++++ upstream/Telegram/SourceFiles/codegen/style/parsed_file.cpp	2018-11-07 17:50:42.805188694 +0300
+@@ -48,6 +48,10 @@
+ constexpr int kErrorIconDuplicate = 807;
+ constexpr int kErrorBadIconModifier = 808;
+ 
++int clamp(int v, int lo, int hi) {
++	return v < lo ? lo : v > hi ? hi : v;
++}
++
+ QString findInputFile(const Options &options) {
+ 	for (const auto &dir : options.includePaths) {
+ 		QString tryPath = QDir(dir).absolutePath() + '/' + options.inputPath;
+@@ -81,7 +85,7 @@
+ }
+ 
+ uchar toGray(uchar r, uchar g, uchar b) {
+-	return std::clamp(int(0.21 * r + 0.72 * g + 0.07 * b), 0, 255);
++	return clamp(int(0.21 * r + 0.72 * g + 0.07 * b), 0, 255);
+ }
+ 
+ uchar readHexUchar(QChar ch) {
