@@ -23,7 +23,7 @@ BuildRequires: gcc
 #BuildRequires: guidelines-support-library-devel
 #BuildRequires: libappindicator-devel
 #BuildRequires: mapbox-variant-devel
-BuildRequires: ffmpeg-devel >= 3.1
+BuildRequires: libav-devel >= 3.1
 BuildRequires: openal-soft-devel
 BuildRequires: libstdc++-devel
 #BuildRequires: range-v3-devel
